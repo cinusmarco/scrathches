@@ -14,17 +14,19 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SuppressWarnings("ALL")
-@ExtendWith(MyAfterAllException.class)
-@ExtendWith(MyAfterEachException.class)
+
+@ExtendWith(MyAfterAllExtension.class)
+@ExtendWith(MyAfterEachExtension.class)
+@ExtendWith(MyOtherAfterAllExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
 class ExtensionUnderstandingTest {
-  @RegisterExtension MyBeforeAllException myBeforeAllException = new MyBeforeAllException();
+  @RegisterExtension
+  static MyBeforeAllExtension  myBeforeAllExtension = new MyBeforeAllExtension();
 
   @RegisterExtension
-  static MyOtherAfterAllException myOtherAfterAllException = new MyOtherAfterAllException();
+  static MyOtherAfterAllExtension myOtherAfterAllExtension = new MyOtherAfterAllExtension();
 
-  @RegisterExtension MyBeforeEachException myBeforeEachException = new MyBeforeEachException();
+  @RegisterExtension MyBeforeEachExtension myBeforeEachExtension = new MyBeforeEachExtension();
 
   ExtensionUnderstandingTest() {
     System.err.println("I'm the constructor");
@@ -45,7 +47,7 @@ class ExtensionUnderstandingTest {
   }
 }
 
-class MyBeforeAllException implements BeforeAllCallback {
+class MyBeforeAllExtension implements BeforeAllCallback {
 
   @Override
   public void beforeAll(ExtensionContext context) {
@@ -53,34 +55,34 @@ class MyBeforeAllException implements BeforeAllCallback {
   }
 }
 
-class MyAfterAllException implements AfterAllCallback {
+class MyAfterAllExtension implements AfterAllCallback {
 
   @Override
   public void afterAll(ExtensionContext context) {
-    System.err.println("MyAfterAllException::afterAll");
+    System.err.println("MyAfterAllExtension::afterAll");
   }
 }
 
-class MyOtherAfterAllException implements AfterAllCallback {
+class MyOtherAfterAllExtension implements AfterAllCallback {
 
   @Override
   public void afterAll(ExtensionContext context) {
-    System.err.println("MyOtherAfterAllException::afterAll");
+    System.err.println("MyOtherAfterAllExtension::afterAll");
   }
 }
 
-class MyBeforeEachException implements BeforeEachCallback {
+class MyBeforeEachExtension implements BeforeEachCallback {
 
   @Override
   public void beforeEach(ExtensionContext context) {
-    System.err.println("MyBeforeEachException::beforeEach " + context.getDisplayName());
+    System.err.println("MyBeforeEachExtension::beforeEach " + context.getDisplayName());
   }
 }
 
-class MyAfterEachException implements AfterEachCallback {
+class MyAfterEachExtension implements AfterEachCallback {
 
   @Override
   public void afterEach(ExtensionContext context) {
-    System.err.println("MyAfterEachException::afterEach " + context.getDisplayName());
+    System.err.println("MyAfterEachExtension::afterEach " + context.getDisplayName());
   }
 }
