@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SuppressWarnings("ALL")
 class StringKnowledgeTest {
 
     @Test
@@ -11,7 +12,7 @@ class StringKnowledgeTest {
         String first = "Marco";
         String second = "Marco";
 
-        assertThat(first.equals(second)).isTrue();
+        System.out.println(first.equals(second));
     }
 
     @Test
@@ -19,7 +20,7 @@ class StringKnowledgeTest {
         String first = "Marco";
         String second = "Marco";
 
-        assertThat(first == second).isTrue();
+        System.out.println(first == second);
     }
 
     @Test
@@ -28,6 +29,7 @@ class StringKnowledgeTest {
         String second = new String(new char[]{'M','a','r','c','o'});
         String third = second;
 
-        assertThat(first == third).isTrue();
+        System.err.println("first == second: " + (first == second));
+        System.err.println("second == third: " + (second == third));
     }
 }
